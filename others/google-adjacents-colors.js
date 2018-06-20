@@ -14,7 +14,7 @@ function dfs(row, col) {
     const offsets = [[-1, 0], [0, 1], [1, 0], [0, -1]]
 
     const color = data[row][col]
-    const nodes = [[row, col]];
+    const nodes = [[row, col]]
     let count = 1
 
     while (nodes.length) {
@@ -41,12 +41,12 @@ function dfs(row, col) {
     return count
 }
 
-let max = 0;
+let max = 0
 
 for (let i = 0; i < ROWS; i++) {
     for (let j = 0; j < COLS; j++) {
         if (!visited[[i, j]]) {
-            const colorCount = dfs(i, j);
+            const colorCount = dfs(i, j)
             console.log('from', i, j, 'I counted', colorCount)
             if (colorCount > max) {
                 max = colorCount
