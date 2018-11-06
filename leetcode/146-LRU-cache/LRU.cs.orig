@@ -1,0 +1,112 @@
+using System;
+using System.Collections.Generic;
+
+namespace lru {
+    public class LRUCache {
+        private readonly IDictionary<int, int> cache;
+        private int size, capacity;
+        private Node head, tail;
+
+        public LRUCache(int _capacity) {
+            cache = new Dictionary<int, int>();
+            head = new Node(0);
+            tail = new Node(0);
+            head.next = tail;
+            tail.prev = head;
+            size = 0;
+            capacity = _capacity;
+        }
+
+        public int Get(int key) {
+            Console.WriteLine($"Get {key}");
+            int val;
+            if (!cache.TryGetValue(key, out val)) return -1;
+            UpdateUsages(key);
+            return val;
+        }
+
+        public void Put(int key, int value) {
+            Console.WriteLine($"Put {key}");
+            UpdateUsages(key);
+            cache[key] = value;
+        }
+
+        private void RemoveLeastUsed() {
+            var toRemove = tail.prev;
+            Console.WriteLine($"Remove {toRemove.key}");
+            cache.Remove(toRemove.key);
+            var last = toRemove.prev;
+            Console.WriteLine($"Last {last.key}");
+            last.next = tail;
+            tail.prev = last;
+        }
+
+        private void UpdateUsages(int key) {
+            var found = false;
+            var node = head.next;
+
+            while (node != tail) {
+                if (node.key == key) {
+                    MoveToHead(node);
+                    found = true;
+                    break;
+                }
+                node = node.next;
+            }
+
+            if (!found) {
+                InsertNode(key);
+            }
+
+            var n = head.next;
+            while (n != tail) {
+                Console.Write($"{n.key},{n.prev.key},{n.next.key} -> ");
+                n = n.next;
+            }
+            Console.WriteLine();
+        }
+
+        private void InsertNode(int key) {
+            if (size >= capacity) {
+                RemoveLeastUsed();
+                size--;
+            }
+            var node = new Node(key);
+            var headNext = head.next;
+            head.next = node;
+            node.prev = head;
+            node.next = headNext;
+            headNext.prev = node;
+            size++;
+        }
+
+        private void MoveToHead(Node node) {
+            if (head.next == node) return;
+            var nodePrev = node.prev;
+            var nodeNext = node.next;
+            var headNext = head.next;
+            head.next = node;
+            node.prev = head;
+            node.next = headNext;
+            nodePrev.next = nodeNext;
+            nodeNext.prev = nodePrev;
+           // if (headNext == nodePrev) {
+           //     nodePrev.prev = node;
+           // }
+           headNext.prev = node;
+        }
+
+        private class Node {
+            public int key;
+            public Node next, prev;
+
+            public Node(int _key) { key = _key; }
+        }
+    }
+}
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.Get(key);
+ * obj.Put(key,value);
+ */
