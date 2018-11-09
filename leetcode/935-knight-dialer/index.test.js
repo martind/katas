@@ -1,0 +1,16 @@
+const knightDialer = require('./index')
+
+test('should return correct count', () => {
+  expect(knightDialer(1)).toBe(10)
+  expect(knightDialer(2)).toBe(20)
+  expect(knightDialer(3)).toBe(46)
+  expect(knightDialer(4)).toBe(104)
+  expect(knightDialer(5)).toBe(240)
+  expect(knightDialer(6)).toBe(544)
+  expect(knightDialer(7)).toBe(1256)
+  expect(knightDialer(8)).toBe(2848)
+  expect(knightDialer(9)).toBe(6576)
+  expect(knightDialer(500)).toBe(84202957)
+  expect(knightDialer(750)).toBe(185434245)
+  expect(knightDialer(5000)).toBe(406880451)
+})
