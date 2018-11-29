@@ -5,8 +5,8 @@ function hourglassSum(h) {
         for (let j = 1; j <= 4; j++) {
             let count = 0
             let near = [
-                [i-1, j-1], [i-1,j], [i-1,j+1],
-                [i,j],
+                [i-1, j-1], [i-1, j], [i-1, j+1],
+                            [i, j],
                 [i+1, j-1], [i+1, j], [i+1, j+1]
             ]
 
