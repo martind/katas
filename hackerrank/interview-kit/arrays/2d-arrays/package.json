@@ -1,0 +1,12 @@
+{
+  "name": "2d-arrays",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "tap": "^12.1.0"
+  },
+  "scripts": {
+    "test": "tap test/*.js"
+  }
+}
