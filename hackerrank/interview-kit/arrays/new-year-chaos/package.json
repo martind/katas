@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "tap": "^12.1.0"
+    "tap": "^14.4.1"
   },
   "scripts": {
     "test": "tap test/*.js"
